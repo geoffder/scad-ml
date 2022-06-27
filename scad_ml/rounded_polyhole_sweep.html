@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>rounded_polyhole_sweep (scad_ml.rounded_polyhole_sweep)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; rounded_polyhole_sweep</nav><header class="odoc-preamble"><h1 id="rounded-polyhole-sweep"><a href="#rounded-polyhole-sweep" class="anchor"></a>Rounded Polyhole Sweep</h1><pre><code>open Scad_ml
+
+let () =
+  let path =
+    Bezier3.curve ~fn:20
+    @@ Bezier3.of_path Vec3.[ v 0. 0. 2.; v 0. 20. 20.; v 40. 10. 0.; v 50. 10. 5. ]
+  in
+  let scad =
+    let holes =
+      let s = List.rev @@ Path2.circle ~fn:90 2.
+      and d = 1.9 in
+      Path2.[ translate (v2 (-.d) (-.d)) s; translate (v2 d d) s ]
+    and outer =
+      Path2.square ~center:true (v2 10. 10.)
+      |&gt; Path2.Round.(flat ~corner:(chamf (`Width 1.)))
+      |&gt; Path2.roundover
+    in
+    Mesh.(
+      path_extrude
+        ~path
+        ~spec:
+          Cap.(
+            capped
+              ~bot:(round ~holes:`Same @@ circ (`Radius (-0.6)))
+              ~top:(round @@ circ (`Radius 0.5)))
+        (Poly2.make ~holes outer))
+    |&gt; Mesh.merge_points
+    |&gt; Mesh.to_scad
+  in
+  Scad.to_file &quot;rounded_polyhole_sweep.scad&quot; scad</code></pre> <img src="../assets/rounded_polyhole_sweep.png" style="width:150mm;" /> </header><div class="odoc-content"></div></body></html>
