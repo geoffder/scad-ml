@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>cartesian_gravity_well (scad_ml.cartesian_gravity_well)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; cartesian_gravity_well</nav><header class="odoc-preamble"><h1 id="cartesian-gravity-well"><a href="#cartesian-gravity-well" class="anchor"></a>Cartesian Gravity Well</h1><pre><code>let () =
+  let scad =
+    let gravity_well ~x ~y =
+      let z = 50. -. (50. /. Float.sqrt ((x *. x) +. (y *. y))) in
+      if z &lt; 1. then 1. else z
+    in
+    Mesh.cartesian_plot
+      ~min_x:(-10.)
+      ~x_steps:30
+      ~max_x:0.
+      ~min_y:(-10.)
+      ~y_steps:60
+      ~max_y:10.
+      gravity_well
+    |&gt; Mesh.to_scad
+  in
+  Scad.to_file &quot;cartesian_gravity_well.scad&quot; scad</code></pre></header><div class="odoc-content"></div></body></html>

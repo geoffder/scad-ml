@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>sweep_starburst (scad_ml.sweep_starburst)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; sweep_starburst</nav><header class="odoc-preamble"><h1 id="path-transfomations-(standard-vs-euler)"><a href="#path-transfomations-(standard-vs-euler)" class="anchor"></a>Path transfomations (standard vs euler)</h1><pre><code>let () =
+  let poly =
+    [ -10., -1.; -10., 6.; -7., 6.; -7., 1.; 7., 1.; 7., 6.; 10., 6.; 10., -1. ]
+    |&gt; Path2.of_tups
+    |&gt; Poly2.make
+  in
+  let paths =
+    let d = 20.
+    and p { x; y; z } = [ v3 x y z; v3 (x *. 2.) (y *. 2.) (z *. 2.) ] in
+    let out = [ v3 d 0. 0.; v3 d 0. d; v3 d 0. (-.d) ] in
+    let f i =
+      List.map (fun s -&gt; Vec3.rotate (v3 0. 0. Float.(pi /. 4. *. i)) s |&gt; p) out
+    in
+    p (v3 0. 0. d) :: p (v3 0. 0. (-.d)) :: List.concat_map f (List.init 8 Float.of_int)
+  and flat = Scad.linear_extrude ~height:1. (Scad.polygon poly.outer) in
+  let build euler =
+    let scad =
+      let f path = Mesh.(to_scad @@ path_extrude ~euler ~path poly) in
+      Scad.union @@ (flat :: List.map f paths)
+    and name =
+      Printf.sprintf &quot;sweep_starburst_%s.scad&quot; (if euler then &quot;euler&quot; else &quot;default&quot;)
+    in
+    Scad.to_file name scad
+  in
+  build false;
+  build true</code></pre></header><div class="odoc-content"></div></body></html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>rounded_text (scad_ml.rounded_text)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; rounded_text</nav><header class="odoc-preamble"><h1 id="rounded-text-extrusion"><a href="#rounded-text-extrusion" class="anchor"></a>Rounded text extrusion</h1><pre><code>let () =
+  let scad =
+    let hello = PolyText.text ~center:true ~fn:5 ~size:5. ~font:&quot;Roboto&quot; &quot;Hello World!&quot;
+    and f poly =
+      let mesh =
+        Mesh.(
+          linear_extrude
+            ~check_valid:(`Quality 1)
+            ~caps:
+              Cap.
+                { top = round ~mode:Delta @@ circ ~fn:5 (`Cut 0.01)
+                ; bot = round ~mode:Delta @@ circ ~fn:5 (`Cut 0.01)
+                }
+              (* ~caps: *)
+              (*   Spec. *)
+              (*     { top = round @@ chamf ~height:0.1 () *)
+              (*     ; bot = round @@ chamf ~height:0.1 () *)
+              (*     } *)
+            ~height:0.5
+            poly)
+      in
+      (* Scad.union [ Mesh.to_scad mesh; Mesh.show_points (fun _ -&gt; Scad.sphere 0.05) mesh ] *)
+      Mesh.to_scad mesh
+    in
+    Scad.union @@ List.map f hello
+  in
+  Scad.to_file &quot;rounded_text.scad&quot; scad</code></pre></header><div class="odoc-content"></div></body></html>
