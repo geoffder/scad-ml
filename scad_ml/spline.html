@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>spline (scad_ml.spline)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; spline</nav><header class="odoc-preamble"><h1 id="cublic-spline"><a href="#cublic-spline" class="anchor"></a>Cublic Spline</h1><pre><code>let () =
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>spline (scad_ml.spline)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; spline</nav><header class="odoc-preamble"><h1 id="cublic-spline"><a href="#cublic-spline" class="anchor"></a>Cublic Spline</h1><pre><code>open Scad_ml
+
+let () =
   let control_pts = [ v2 0. 10.; v2 10. 40.; v2 20. 40.; v2 30. (-20.); v2 40. (-40.) ]
   and square = Poly2.square ~center:true (v2 2. 5.) in
   let marks =

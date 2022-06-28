@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>rounded_prism_tunnel (scad_ml.rounded_prism_tunnel)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; rounded_prism_tunnel</nav><header class="odoc-preamble"><h1 id="rounded-prism-tunnel"><a href="#rounded-prism-tunnel" class="anchor"></a>Rounded Prism Tunnel</h1><pre><code>let () =
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>rounded_prism_tunnel (scad_ml.rounded_prism_tunnel)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; rounded_prism_tunnel</nav><header class="odoc-preamble"><h1 id="rounded-prism-tunnel"><a href="#rounded-prism-tunnel" class="anchor"></a>Rounded Prism Tunnel</h1><pre><code>open Scad_ml
+
+let () =
   let bot = Poly3.box ~center:true ~thickness:(v2 3. 3.) (v2 5. 5.) in
   let top =
     Poly3.translate (v3 0. 0. 5.) (Poly3.rotate (v3 0. (Float.pi /. 4.) 0.) bot)

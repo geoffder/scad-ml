@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>helix_path_points (scad_ml.helix_path_points)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; helix_path_points</nav><header class="odoc-preamble"><h1 id="helical-path"><a href="#helical-path" class="anchor"></a>Helical Path</h1><pre><code>let () =
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>helix_path_points (scad_ml.helix_path_points)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; helix_path_points</nav><header class="odoc-preamble"><h1 id="helical-path"><a href="#helical-path" class="anchor"></a>Helical Path</h1><pre><code>open Scad_ml
+
+let () =
   let scad =
     let pts = Path3.helix ~left:false ~pitch:5. ~n_turns:10 ~r2:10. 5. in
     let s = Scad.color Color.Red @@ Scad.sphere 1. in
