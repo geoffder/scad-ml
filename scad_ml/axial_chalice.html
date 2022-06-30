@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"><head><title>axial_chalice (scad_ml.axial_chalice)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; axial_chalice</nav><header class="odoc-preamble"><h1 id="axial-chalice"><a href="#axial-chalice" class="anchor"></a>Axial Chalice</h1><pre><code>open Scad_ml
 
-let () =
-  let scad =
-    let f ~z ~a:_ = Float.(5. *. (cos (log ((z /. 5.) +. 1.) *. pi) +. 2.)) in
-    let outer = Mesh.axial_plot ~min_z:0. ~z_steps:50 ~max_z:50. f
-    and inner =
-      Mesh.axial_plot ~min_z:2. ~z_steps:50 ~max_z:51. (fun ~z ~a -&gt; f ~z ~a -. 2.)
-    in
-    Scad.difference (Mesh.to_scad outer) [ Mesh.to_scad inner ]
-  in
-  Scad.to_file &quot;axial_chalice.scad&quot; scad</code></pre></header><div class="odoc-content"></div></body></html>
+let f ~z ~a:_ = Float.(5. *. (cos (log ((z /. 5.) +. 1.) *. pi) +. 2.))
+let outer = Mesh.axial_plot ~min_z:0. ~z_steps:50 ~max_z:50. f
+let inner = Mesh.axial_plot ~min_z:2. ~z_steps:50 ~max_z:51. (fun ~z ~a -&gt; f ~z ~a -. 2.)</code></pre><p>Convert our mesh into an OpenSCAD polyhedron and output to file.</p><pre><code>let () =
+  Scad.to_file &quot;axial_chalice.scad&quot;
+  @@ Scad.difference (Mesh.to_scad outer) [ Mesh.to_scad inner ]</code></pre>
+<p style="text-align:center;">
+<img src="../assets/axial_chalice.png" style="width:150mm;"/>
+</p> </header><div class="odoc-content"></div></body></html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>helices (scad_ml.helices)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; helices</nav><header class="odoc-preamble"><h1 id="helical-paths-and-extrusions"><a href="#helical-paths-and-extrusions" class="anchor"></a>Helical paths and extrusions</h1><pre><code>open Scad_ml
+
+let () =
+  let scad =
+    let pts = Path3.helix ~left:false ~pitch:5. ~n_turns:10 ~r2:10. 5. in
+    let s = Scad.color Color.Red @@ Scad.sphere 1. in
+    Scad.union @@ List.map (fun p -&gt; Scad.translate p s) pts
+  in
+  Scad.to_file &quot;helix_path_points.scad&quot; scad</code></pre>
+<p style="text-align:center;">
+<img src="../assets/helix_path_points.png" style="width:150mm;"/>
+</p> <pre><code>let poly =
+  [ -10., -1.; -10., 6.; -7., 6.; -7., 1.; 7., 1.; 7., 6.; 10., 6.; 10., -1. ]
+  |&gt; Path2.of_tups
+  |&gt; Poly2.make
+
+let mesh =
+  Mesh.helix_extrude ~scale:(v2 1. 1.) ~left:true ~pitch:30. ~n_turns:10 ~r2:100. 50. poly
+
+let () = Scad.to_file &quot;helix_extrude.scad&quot; (Mesh.to_scad mesh)</code></pre>
+<p style="text-align:center;">
+<img src="../assets/helix_extrude.png" style="width:150mm;"/>
+</p> </header><div class="odoc-content"></div></body></html>
