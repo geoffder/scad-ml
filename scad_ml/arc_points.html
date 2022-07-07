@@ -4,7 +4,7 @@
   Scad.to_file &quot;arc_points_2d.scad&quot; (Path2.show_points show arc)</code></pre>
 <p style="text-align:center;">
 <img src="../assets/arc_points_2d.png" style="width:150mm;"/>
-</p> <p>Each of the arc drawing functions takes a <code>wedge</code> parameter that will include the centre point of the arc at the end of the path.</p><pre><code>let () =
+</p> <p>Each of the arc drawing functions takes a <code>wedge</code> parameter that will include the centre point of the arc at the end of the path when <code>true</code>.</p><pre><code>let () =
   let arc =
     Path2.arc_about_centre
       ~fn:6
