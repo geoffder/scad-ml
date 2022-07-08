@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>helices (scad_ml.helices)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; helices</nav><header class="odoc-preamble"><h1 id="helical-paths-and-extrusions"><a href="#helical-paths-and-extrusions" class="anchor"></a>Helical paths and extrusions</h1><pre><code>open Scad_ml
-
-let () =
-  let scad =
-    let pts = Path3.helix ~left:false ~pitch:5. ~n_turns:10 ~r2:10. 5. in
-    let s = Scad.color Color.Red @@ Scad.sphere 1. in
-    Scad.union @@ List.map (fun p -&gt; Scad.translate p s) pts
-  in
-  Scad.to_file &quot;helix_path_points.scad&quot; scad</code></pre>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>helices (scad_ml.helices)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; helices</nav><header class="odoc-preamble"><h1 id="helical-paths-and-extrusions"><a href="#helical-paths-and-extrusions" class="anchor"></a>Helical paths and extrusions</h1><pre><code>open Scad_ml</code></pre><p>Draw a right-handed helical path with <code>10</code> turns, starting with a radius of <code>5.</code>, and ending with a radius of <code>10.</code>. With a <code>pitch</code> of <code>5.</code>, it stands <code>10. *. 5. = 50.</code> units tall.</p><pre><code>let () =
+  Path3.helix ~left:false ~pitch:5. ~n_turns:10 ~r2:10. 5.
+  |&gt; Path3.show_points (fun _ -&gt; Scad.color Color.Red @@ Scad.sphere ~fn:36 0.7)
+  |&gt; Scad.to_file &quot;helix_path_points.scad&quot;</code></pre>
 <p style="text-align:center;">
 <img src="../assets/helix_path_points.png" style="width:150mm;"/>
-</p> <pre><code>let poly =
+</p> <p>We'll use a simple elbow shape for our sweeps so that its orientation is easily discernible along the path.</p><pre><code>let poly =
   [ -10., -1.; -10., 6.; -7., 6.; -7., 1.; 7., 1.; 7., 6.; 10., 6.; 10., -1. ]
   |&gt; Path2.of_tups
   |&gt; Poly2.make
 
-let mesh =
-  Mesh.helix_extrude ~scale:(v2 1. 1.) ~left:true ~pitch:30. ~n_turns:10 ~r2:100. 50. poly
-
-let () = Scad.to_file &quot;helix_extrude.scad&quot; (Mesh.to_scad mesh)</code></pre>
+let () = Scad.to_file &quot;elbow.scad&quot; (Scad.linear_extrude ~height:1. @@ Poly2.to_scad poly)</code></pre>
+<p style="text-align:center;">
+<img src="../assets/elbow.png" style="width:150mm;"/>
+</p> <p>Sweep our <code>poly</code> along a left-handed helix, while halving its width, and doubling its height. This time we'll start with a wider base radius and narrow towards the top.</p><pre><code>let () =
+  poly
+  |&gt; Mesh.helix_extrude ~scale:(v2 0.5 2.) ~left:true ~pitch:45. ~n_turns:10 ~r2:50. 150.
+  |&gt; Mesh.to_scad
+  |&gt; Scad.to_file &quot;helix_extrude.scad&quot;</code></pre>
 <p style="text-align:center;">
 <img src="../assets/helix_extrude.png" style="width:150mm;"/>
 </p> </header><div class="odoc-content"></div></body></html>

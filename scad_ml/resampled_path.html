@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><title>resampled_path (scad_ml.resampled_path)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; resampled_path</nav><header class="odoc-preamble"><h1 id="path-resampling-and-scaling/twisting-sweeps"><a href="#path-resampling-and-scaling/twisting-sweeps" class="anchor"></a>Path resampling and scaling/twisting sweeps</h1><pre><code>open Scad_ml</code></pre><p>Oftentimes, we would just like to define our paths without colinear points, such that it only consists of corners. However, some applications call for more fine sampling, and in those times we can reach for <a href="Scad_ml/Path3/index.html#val-resample"><code>Path3.resample</code></a> or <a href="Scad_ml/Path3/index.html#val-subdivide"><code>Path3.subdivide</code></a>. For this example, the exact number of points isn't a concern, so we'll specify a new point spacing as our <code>~freq</code>.</p><pre><code>let path = [ v3 0. 0. 0.; v3 5. 5. 5.; v3 5. 5. 15. ]
 let resampled = Path3.subdivide ~freq:(`Spacing 0.5) path</code></pre><p>Lets visualize our original <code>path</code>, and the <code>resampled</code> points with <a href="Scad_ml/Path3/index.html#val-show_points"><code>Path3.show_points</code></a> to get a sense of how fine our <code>~freq</code> parameter has gotten us.</p><pre><code>let () =
   let old_marks =
-    let f _ = Scad.(color ~alpha:0.1 Color.Magenta @@ sphere 0.5) in
+    let f _ = Scad.(color ~alpha:0.2 Color.Magenta @@ sphere ~fn:36 0.4) in
     Path3.show_points f path
-  and new_marks = Path3.show_points (fun _ -&gt; Scad.sphere 0.2) resampled in
+  and new_marks = Path3.show_points (fun _ -&gt; Scad.sphere ~fn:36 0.2) resampled in
   Scad.to_file &quot;resampled_path.scad&quot; (Scad.union [ old_marks; new_marks ])</code></pre>
 <p style="text-align:center;">
 <img src="../assets/resampled_path.png" style="width:150mm;"/>
