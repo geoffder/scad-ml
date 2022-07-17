@@ -6,7 +6,7 @@ let pointy =
   |&gt; Scad.linear_extrude ~height:1.
   |&gt; Scad.translate (v3 0. 0. (-0.5))
   |&gt; Scad.color ~alpha:0.5 Color.Silver</code></pre><p><a href="Scad_ml/Poly2/index.html#val-offset"><code>Poly2.offset</code></a>, and <a href="Scad_ml/Path2/index.html#val-offset"><code>Path2.offset</code></a>, are the point representation counterparts of <a href="Scad_ml/Scad/index.html#val-offset"><code>Scad.offset</code></a>, so they share the same semantics. For this example, we apply an negative (inward) circular offset.</p><pre><code>let () =
-  Poly2.offset (`Radius (-0.5)) poly
+  Poly2.offset ~mode:`Radius (-0.5) poly
   |&gt; Poly2.to_scad
   |&gt; Scad.linear_extrude ~height:1.
   |&gt; (fun rounded -&gt; Scad.union [ rounded; pointy ])
