@@ -10,7 +10,11 @@ let resampled = Path3.subdivide ~freq:(`Spacing 0.5) path</code></pre><p>Lets vi
 <img src="../assets/resampled_path.png" style="width:150mm;"/>
 </p> <p>One such alluded to application for resampling, is when additional transformations such as scaling and twisting along a path extrusion is desired.</p><pre><code>let () =
   let mesh =
-    Mesh.path_extrude ~scale:(v2 4. 1.) ~twist:(Float.pi *. 4.) ~path:resampled
+    Mesh.path_extrude
+      ~scale_k:0.3
+      ~scale:(v2 4. 1.)
+      ~twist:(Float.pi *. 4.)
+      ~path:resampled
     @@ Poly2.square ~center:true (v2 1. 0.5)
   in
   Scad.to_file &quot;scaling_twister_extrude.scad&quot; (Mesh.to_scad mesh)</code></pre>

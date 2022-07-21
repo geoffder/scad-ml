@@ -18,29 +18,36 @@
   <span>?winding:<span>[&lt; `CCW <span>| `CW</span> <span>| `NoCheck</span> CCW CW ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>?fa:float <span class="arrow">&#45;&gt;</span></span>
   <span>?slices:int <span class="arrow">&#45;&gt;</span></span>
+  <span>?scale_k:float <span class="arrow">&#45;&gt;</span></span>
+  <span>?twist_k:float <span class="arrow">&#45;&gt;</span></span>
   <span>?scale:<a href="../Vec2/index.html#type-t">Vec2.t</a> <span class="arrow">&#45;&gt;</span></span>
   <span>?twist:float <span class="arrow">&#45;&gt;</span></span>
   <span>?center:bool <span class="arrow">&#45;&gt;</span></span>
   <span>?caps:<a href="Cap/index.html#type-caps">Cap.caps</a> <span class="arrow">&#45;&gt;</span></span>
   <span>height:float <span class="arrow">&#45;&gt;</span></span>
   <span><a href="../Poly2/index.html#type-t">Poly2.t</a> <span class="arrow">&#45;&gt;</span></span>
-  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>linear_extrude ?check_valid ?merge ?winding ?fa ?slices ?scale ?twist
+  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>linear_extrude ?check_valid ?merge ?winding ?fa ?slices ?scale_k ?twist_k ?scale ?twist
     ?center ?caps ~height poly</code></p><p>Vertically extrude a 2d polygon into a 3d mesh. <code>slices</code>, <code>scale</code>, <code>twist</code>, <code>center</code>, and <code>height</code> parameters are analogous to those found on <a href="../Scad/index.html#val-linear_extrude"><code>Scad.linear_extrude</code></a>. See <a href="#val-sweep"><code>sweep</code></a> for explaination of shared parameters (note: <code>caps</code> is a subset of <code>spec</code>, since the ends of a linear extrusion cannot be looped)</p></div></div><div class="odoc-spec"><div class="spec value" id="val-path_extrude" class="anchored"><a href="#val-path_extrude" class="anchor"></a><code><span><span class="keyword">val</span> path_extrude : 
   <span>?check_valid:<span>[ <span>`Quality of int</span> <span>| `No</span> ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>?merge:bool <span class="arrow">&#45;&gt;</span></span>
   <span>?winding:<span>[&lt; `CCW <span>| `CW</span> <span>| `NoCheck</span> CCW CW ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>?spec:<a href="Cap/index.html#type-t">Cap.t</a> <span class="arrow">&#45;&gt;</span></span>
   <span>?euler:bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?scale_k:float <span class="arrow">&#45;&gt;</span></span>
+  <span>?twist_k:float <span class="arrow">&#45;&gt;</span></span>
   <span>?scale:<a href="../Vec2/index.html#type-t">Vec2.t</a> <span class="arrow">&#45;&gt;</span></span>
   <span>?twist:float <span class="arrow">&#45;&gt;</span></span>
   <span>path:<a href="../Path3/index.html#type-t">Path3.t</a> <span class="arrow">&#45;&gt;</span></span>
   <span><a href="../Poly2/index.html#type-t">Poly2.t</a> <span class="arrow">&#45;&gt;</span></span>
-  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>path_extrude ?check_valid ?merge ?winding ?spec ?euler ?scale ?twist ~path poly</code></p><p>Extrude a 2d polygon along the given <code>path</code> into a 3d mesh. This is a convenience function that composes transform generation using <a href="../Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a> with <a href="#val-sweep"><code>Mesh.sweep</code></a>.</p></div></div><div class="odoc-spec"><div class="spec value" id="val-helix_extrude" class="anchored"><a href="#val-helix_extrude" class="anchor"></a><code><span><span class="keyword">val</span> helix_extrude : 
+  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>path_extrude ?check_valid ?merge ?winding ?spec ?euler
+     ?scale_k ?twist_k ?scale ?twist ~path poly</code></p><p>Extrude a 2d polygon along the given <code>path</code> into a 3d mesh. This is a convenience function that composes transform generation using <a href="../Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a> with <a href="#val-sweep"><code>Mesh.sweep</code></a>.</p></div></div><div class="odoc-spec"><div class="spec value" id="val-helix_extrude" class="anchored"><a href="#val-helix_extrude" class="anchor"></a><code><span><span class="keyword">val</span> helix_extrude : 
   <span>?check_valid:<span>[ <span>`Quality of int</span> <span>| `No</span> ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>?merge:bool <span class="arrow">&#45;&gt;</span></span>
   <span>?fn:int <span class="arrow">&#45;&gt;</span></span>
   <span>?fa:float <span class="arrow">&#45;&gt;</span></span>
   <span>?fs:float <span class="arrow">&#45;&gt;</span></span>
+  <span>?scale_k:float <span class="arrow">&#45;&gt;</span></span>
+  <span>?twist_k:float <span class="arrow">&#45;&gt;</span></span>
   <span>?scale:<a href="../Vec2/index.html#type-t">Vec2.t</a> <span class="arrow">&#45;&gt;</span></span>
   <span>?twist:float <span class="arrow">&#45;&gt;</span></span>
   <span>?caps:<a href="Cap/index.html#type-caps">Cap.caps</a> <span class="arrow">&#45;&gt;</span></span>
@@ -50,7 +57,7 @@
   <span>?r2:float <span class="arrow">&#45;&gt;</span></span>
   <span>float <span class="arrow">&#45;&gt;</span></span>
   <span><a href="../Poly2/index.html#type-t">Poly2.t</a> <span class="arrow">&#45;&gt;</span></span>
-  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>helix_extrude ?check_valid ?merge ?fn ?fs ?fa ?scale ?twist
+  <a href="#type-t">t</a></span></code></div><div class="spec-doc"><p><code>helix_extrude ?check_valid ?merge ?fn ?fs ?fa ?scale_k ?twist_k ?scale ?twist
      ?caps ?left ~n_turns ~pitch ?r2 r1 poly</code></p><p>Helical extrusion of a 2d polygon into a 3d mesh. This is a special case of <a href="#val-path_extrude"><code>Mesh.path_extrude</code></a>, but following a path generated with <a href="../Path3/index.html#val-helix"><code>Path3.helix</code></a>, and using transforms that take the helical rotation into account.</p></div></div><div class="odoc-spec"><div class="spec module" id="module-Prism" class="anchored"><a href="#module-Prism" class="anchor"></a><code><span><span class="keyword">module</span> <a href="Prism/index.html">Prism</a></span><span> : <span class="keyword">sig</span> ... <span class="keyword">end</span></span></code></div><div class="spec-doc"><p>Rounded prism configuration module.</p></div></div><div class="odoc-spec"><div class="spec value" id="val-prism" class="anchored"><a href="#val-prism" class="anchor"></a><code><span><span class="keyword">val</span> prism : 
   <span>?debug:bool <span class="arrow">&#45;&gt;</span></span>
   <span>?fn:int <span class="arrow">&#45;&gt;</span></span>
