@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>skins_and_morphs (scad_ml.skins_and_morphs)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; skins_and_morphs</nav><header class="odoc-preamble"><h1 id="skins-and-morphs"><a href="#skins-and-morphs" class="anchor"></a>Skins and Morphs</h1><pre><code>open Scad_ml
+
+let () =
+  let sq = Path3.square ~center:true (v2 2. 2.)
+  and circ =
+    Path3.circle ~fn:36 0.6
+    |&gt; Path3.rotate (v3 0. (Float.pi /. 4.) 0.)
+    |&gt; Path3.translate (v3 0. 0. 1.)
+  and ellipse =
+    Path3.ellipse ~fn:21 (v2 0.5 1.5)
+    |&gt; Path3.rotate (v3 0. (Float.pi /. 1.5) 0.)
+    |&gt; Path3.translate (v3 3. 0. 1.)
+  and rect =
+    Path3.square ~center:true (v2 0.2 1.) |&gt; Path3.translate (v3 4. 0. 0.) |&gt; List.rev
+  and circ2 =
+    Path3.circle ~fn:50 1.
+    |&gt; Path3.rotate (v3 0. (Float.pi /. 2.) 0.)
+    |&gt; Path3.translate (v3 2. 1. (-2.))
+    |&gt; List.rev
+  and ellipse2 =
+    Path3.ellipse ~fn:60 (v2 0.25 0.5)
+    |&gt; Path3.rotate (v3 0. (Float.pi /. 1.5) 0.)
+    |&gt; Path3.translate (v3 1. 0. (-2.))
+    |&gt; List.rev
+  in
+  ignore [ sq; circ; ellipse; rect; circ2; ellipse2 ];
+  Skin.skin
+    ~refine:2
+    ~endcaps:`Loop
+    ~slices:(`Flat 50)
+    ~spec:(`Flat (`Reindex `ByLen))
+    [ sq; circ; ellipse; rect; circ2; ellipse2 ]
+  |&gt; Mesh.to_scad
+  |&gt; fun s -&gt; Scad.union [ s; Scad.sphere 1. ] |&gt; Scad.to_file &quot;skin_test.scad&quot;</code></pre></header><div class="odoc-content"></div></body></html>
