@@ -39,7 +39,13 @@
   <span><span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> <span class="arrow">&#45;&gt;</span></span>
   <span><span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> <span class="arrow">&#45;&gt;</span></span>
   <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> * <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span></span></code></div></div><div class="odoc-spec"><div class="spec value" id="val-tangent_match" class="anchored"><a href="#val-tangent_match" class="anchor"></a><code><span><span class="keyword">val</span> tangent_match : <span><a href="../Path3/index.html#type-t">Path3.t</a> <span class="arrow">&#45;&gt;</span></span> <span><a href="../Path3/index.html#type-t">Path3.t</a> <span class="arrow">&#45;&gt;</span></span> <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> * <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span></span></code></div></div><div class="odoc-spec"><div class="spec value" id="val-skin" class="anchored"><a href="#val-skin" class="anchor"></a><code><span><span class="keyword">val</span> skin : 
-  <span>?style:<a href="../Mesh/index.html#type-style">Mesh.style</a> <span class="arrow">&#45;&gt;</span></span>
+  <span>?style:
+    <span>[&lt; `Alt
+    <span>| `Concave</span>
+    <span>| `Convex</span>
+    <span>| `Default</span>
+    <span>| `MinEdge</span>
+    <span>| `Quincunx</span> Default MinEdge Quincunx ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>?refine:int <span class="arrow">&#45;&gt;</span></span>
   <span>?mapping:
     <span>[ <span>`Flat of
@@ -58,23 +64,4 @@
   <span>?endcaps:<span>[&lt; `Bot <span>| `Both</span> <span>| `Loop</span> <span>| `None</span> <span>| `Top</span> Both ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span>slices:<span>[&lt; <span>`Flat of int</span> <span><span>| `Mix</span> of <span>int list</span></span> ]</span> <span class="arrow">&#45;&gt;</span></span>
   <span><span><a href="../Path3/index.html#type-t">Path3.t</a> list</span> <span class="arrow">&#45;&gt;</span></span>
-  <a href="../Mesh/index.html#type-t">Mesh.t</a></span></code></div></div><div class="odoc-spec"><div class="spec value" id="val-morph'" class="anchored"><a href="#val-morph'" class="anchor"></a><code><span><span class="keyword">val</span> morph' : 
-  <span>?check_valid:<span>[ `No <span><span>| `Quality</span> of int</span> ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>?winding:<span>[&lt; `CCW <span>| `CW</span> <span>| `NoCheck</span> CCW ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>?sealed:bool <span class="arrow">&#45;&gt;</span></span>
-  <span>?top_mode:<span class="xref-unresolved">Scad_ml__Sweep.Cap.offset_mode</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>?bot_mode:<span class="xref-unresolved">Scad_ml__Sweep.Cap.offset_mode</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>?progress:<span>[&lt; `AutoDist <span>| `AutoPoints</span> <span><span>| `RelDist</span> of <span>float list</span></span> AutoDist ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>top:<span>[&lt; `Empty <span>| `Flat</span> <span><span>| `Round</span> of <span class="xref-unresolved">Scad_ml__Sweep.Cap.offsets</span></span> ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>bot:<span>[&lt; `Empty <span>| `Flat</span> <span><span>| `Round</span> of <span class="xref-unresolved">Scad_ml__Sweep.Cap.offsets</span></span> ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span>transforms:<span><a href="../MultMatrix/index.html#type-t">MultMatrix.t</a> list</span> <span class="arrow">&#45;&gt;</span></span>
-  <span><span>[&lt; <span>`Morph of
-       <span>[&lt; <span>`Direct of <span>[ `ByLen <span>| `BySeg</span> ]</span></span>
-       <span>| `Distance</span>
-       <span>| `FastDistance</span>
-       <span><span>| `Reindex</span> of <span>[ `ByLen <span>| `BySeg</span> ]</span></span>
-       <span>| `Tangent</span> Direct ]</span>
-       * <a href="../Path2/index.html#type-t">Path2.t</a>
-       * <a href="../Path2/index.html#type-t">Path2.t</a></span>
-  <span><span>| `Shape</span> of <a href="../Path2/index.html#type-t">Path2.t</a></span> ]</span> <span class="arrow">&#45;&gt;</span></span>
-  <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> * <span><a href="../Vec3/index.html#type-t">Vec3.t</a> list</span> * <span class="xref-unresolved">Scad_ml__Mesh0.t</span></span></code></div></div></div></body></html>
+  <span class="xref-unresolved">Scad_ml__Mesh0.t</span></span></code></div></div></div></body></html>

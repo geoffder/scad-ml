@@ -53,7 +53,6 @@ let () =
     ; sq2
     ; Path3.translate (v3 0. 0. (-0.5)) sq
     ]
-  |&gt; Mesh.merge_points
   |&gt; Mesh.to_scad
   |&gt; fun s -&gt; Scad.union [ s; Scad.sphere 1. ] |&gt; Scad.to_file &quot;skin_test.scad&quot;
 
@@ -91,4 +90,20 @@ let () =
 (*       |&gt; Mesh.translate (v3 0. 0. 1.5) *)
 (*       |&gt; Mesh.to_scad *)
 (*     ] *)
-(*   |&gt; Scad.to_file &quot;circ_test.scad&quot; *)</code></pre></header><div class="odoc-content"></div></body></html>
+(*   |&gt; Scad.to_file &quot;circ_test.scad&quot; *)
+
+let () =
+  let transforms =
+    let control = Vec3.[ v 0. 0. 2.; v 0. 20. 20.; v 40. 20. 10.; v 30. 0. 10. ] in
+    let path = Bezier3.curve ~fn:60 @@ Bezier3.of_path ~size:(`FlatRel 0.3) control in
+    Path3.to_transforms path
+  and caps =
+    Mesh.Cap.(
+      capped
+        ~bot:(round ~holes:`Same @@ chamf ~height:(-1.2) ~angle:(Float.pi /. 8.) ())
+        ~top:(round @@ circ (`Radius 0.5)))
+  and a = Poly2.ring ~fn:5 ~thickness:(v2 2.5 2.5) (v2 6. 6.)
+  and b = Poly2.ring ~fn:80 ~thickness:(v2 2. 2.) (v2 4. 4.) in
+  Mesh.morph ~caps ~transforms ~outer_map:`Tangent a b
+  |&gt; Mesh.to_scad
+  |&gt; fun s -&gt; Scad.union [ s; Scad.sphere 2. ] |&gt; Scad.to_file &quot;tangent_morph_test.scad&quot;</code></pre></header><div class="odoc-content"></div></body></html>
