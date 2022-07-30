@@ -105,4 +105,16 @@ let () =
   and b = Poly2.ring ~fn:80 ~thickness:(v2 2. 2.) (v2 4. 4.) in
   Mesh.path_morph ~caps ~path ~outer_map:`Tangent a b
   |&gt; Mesh.to_scad
-  |&gt; fun s -&gt; Scad.union [ s; Scad.sphere 2. ] |&gt; Scad.to_file &quot;tangent_morph_test.scad&quot;</code></pre></header><div class="odoc-content"></div></body></html>
+  |&gt; fun s -&gt; Scad.union [ s; Scad.sphere 2. ] |&gt; Scad.to_file &quot;tangent_morph_test.scad&quot;
+
+let () =
+  Mesh.linear_morph
+    ~refine:2
+    ~ez:(v2 0.42 0., v2 1. 1.)
+    ~slices:60
+    ~outer_map:`Tangent
+    ~height:5.
+    (Poly2.circle ~fn:5 4.)
+    (Poly2.circle ~fn:80 0.5)
+  |&gt; Mesh.to_scad
+  |&gt; Scad.to_file &quot;eased_morph.scad&quot;</code></pre></header><div class="odoc-content"></div></body></html>
