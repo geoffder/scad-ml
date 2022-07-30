@@ -11,7 +11,8 @@ let resampled = Path3.subdivide ~freq:(`Spacing 0.5) path</code></pre><p>Lets vi
 </p> <p>One such alluded to application for resampling, is when additional transformations such as scaling and twisting along a path extrusion is desired.</p><pre><code>let () =
   let mesh =
     Mesh.path_extrude
-      ~scale_k:0.3
+      ~scale_ez:(v2 0.42 0., v2 1. 1.)
+      ~twist_ez:(v2 0.42 0., v2 1. 1.)
       ~scale:(v2 4. 1.)
       ~twist:(Float.pi *. 4.)
       ~path:resampled
