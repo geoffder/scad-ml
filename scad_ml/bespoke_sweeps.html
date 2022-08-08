@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>bespoke_sweeps (scad_ml.bespoke_sweeps)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; bespoke_sweeps</nav><header class="odoc-preamble"><h1 id="bespoke-sweeps"><a href="#bespoke-sweeps" class="anchor"></a>Bespoke Sweeps</h1><pre><code>open Scad_ml</code></pre><p>Sometimes one may need more control than what <a href="Scad_ml/Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a> (and by extension <a href="Scad_ml/Mesh/index.html#val-path_extrude"><code>Mesh.path_extrude</code></a>) provide. For instance, as demonstrated below with the <a href="#wavey">wavey cylinder</a>, when non-monotonic scaling throughout a sweep is desired. In those scenarios, generating/composing lists of <a href="Scad_ml/MultMatrix/index.html#type-t"><code>MultMatrix.t</code></a> by other means and giving those to <a href="Scad_ml/Mesh/index.html#val-sweep"><code>Mesh.sweep</code></a> is an option.</p></header><nav class="odoc-toc"><ul><li><a href="#flat-spiral">Flat Spiral</a></li><li><a href="#wavey">Wavey Hollow Cylinder</a></li></ul></nav><div class="odoc-content"><h2 id="flat-spiral"><a href="#flat-spiral" class="anchor"></a>Flat Spiral</h2><p>A plain, centred square with which to draw our spiral.</p><pre><code>let square = Poly2.square ~center:true (v2 10. 10.)</code></pre><p>A series of affine transformation matrices describing a spiral.</p><pre><code>let transforms =
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>bespoke_sweeps (scad_ml.bespoke_sweeps)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; bespoke_sweeps</nav><header class="odoc-preamble"><h1 id="bespoke-sweeps"><a href="#bespoke-sweeps" class="anchor"></a>Bespoke Sweeps</h1><pre><code>open Scad_ml</code></pre><p>Sometimes one may need more control than what <a href="Scad_ml/Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a> (and by extension <a href="Scad_ml/Mesh/index.html#val-path_extrude"><code>Mesh.path_extrude</code></a>) provide. For instance, as demonstrated below with the <a href="#wavey">wavey cylinder</a>, when non-monotonic scaling throughout a sweep is desired. In those scenarios, generating/composing lists of <a href="Scad_ml/Affine3/index.html#type-t"><code>Affine3.t</code></a> by other means and giving those to <a href="Scad_ml/Mesh/index.html#val-sweep"><code>Mesh.sweep</code></a> is an option.</p></header><nav class="odoc-toc"><ul><li><a href="#flat-spiral">Flat Spiral</a></li><li><a href="#wavey">Wavey Hollow Cylinder</a></li></ul></nav><div class="odoc-content"><h2 id="flat-spiral"><a href="#flat-spiral" class="anchor"></a>Flat Spiral</h2><p>A plain, centred square with which to draw our spiral.</p><pre><code>let square = Poly2.square ~center:true (v2 10. 10.)</code></pre><p>A series of affine transformation matrices describing a spiral.</p><pre><code>let transforms =
   let step = 0.001 in
   let f i =
     let t = Float.of_int i *. step in
-    MultMatrix.(
+    Affine3.(
       mul
-        (vector_rotation (v3 0. 0. 1.) (t *. Float.pi *. 40.))
-        (translation (v3 (10. +. (500. *. t)) 0. 0.)))
+        (axis_rotate (v3 0. 0. 1.) (t *. Float.pi *. 40.))
+        (translate (v3 (10. +. (500. *. t)) 0. 0.)))
   in
   List.init (Int.of_float (1. /. step) + 1) f</code></pre><p><a href="Scad_ml/Mesh/index.html#val-sweep"><code>Mesh.sweep</code></a> applies each of the transforms to <code>square</code> in its <i>original</i> state, linking up each resulting loop of points with the next to form a mesh that we can convert into an OpenSCAD polyhedron.</p><pre><code>let () = Scad.to_file &quot;spiral.scad&quot; @@ Mesh.(to_scad @@ sweep ~transforms square)</code></pre>
 <p style="text-align:center;">
@@ -19,10 +19,10 @@
   and rad d = d *. Float.pi /. 180. in
   let f i =
     let t = Float.of_int i *. step in
-    MultMatrix.(
+    Affine3.(
       mul
-        (mul (rotation (v3 (rad 90.) 0. (rad t))) (translation (v3 r 0. 0.)))
-        (scaling (v3 1. (h +. (s *. Float.sin (rad (t *. 6.)))) 1.)))
+        (mul (rotate (v3 (rad 90.) 0. (rad t))) (translate (v3 r 0. 0.)))
+        (scale (v3 1. (h +. (s *. Float.sin (rad (t *. 6.)))) 1.)))
   in
   Mesh.sweep ~transforms:(List.init ((360 / 4) + 1) f) (Poly2.square (v2 2. 1.))
   |&gt; Mesh.to_scad
