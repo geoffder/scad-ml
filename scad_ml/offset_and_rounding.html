@@ -9,7 +9,7 @@ let pointy =
   Poly2.offset ~mode:`Radius (-0.5) poly
   |&gt; Poly2.to_scad
   |&gt; Scad.linear_extrude ~height:1.
-  |&gt; (fun rounded -&gt; Scad.union [ rounded; pointy ])
+  |&gt; Scad.add pointy
   |&gt; Scad.to_file &quot;offset_poly.scad&quot;</code></pre>
 <p style="text-align:center;">
 <img src="../assets/offset_poly.png" style="width:150mm;"/>
@@ -18,7 +18,7 @@ let pointy =
   Path2.Round.circles ~kind:`Radius (List.combine poly.outer radii)</code></pre><p>Then we'll apply our <a href="Scad_ml/Path2/Round/index.html#type-t"><code>Path2.Round.t</code></a> <code>shape_spec</code> with <a href="Scad_ml/Path2/index.html#val-roundover"><code>Path2.roundover</code></a>, with <code>fn</code> segments per corner, and compare that to the original <code>pointy</code> shape.</p><pre><code>let () =
   Scad.polygon (Path2.roundover ~fn:60 shape_spec)
   |&gt; Scad.linear_extrude ~height:1.
-  |&gt; (fun rounded -&gt; Scad.union [ rounded; pointy ])
+  |&gt; Scad.add pointy
   |&gt; Scad.to_file &quot;circular_rounding.scad&quot;</code></pre>
 <p style="text-align:center;">
 <img src="../assets/circular_rounding.png" style="width:150mm;"/>
