@@ -3,12 +3,12 @@
 
 let pointy =
   Poly2.to_scad poly
-  |&gt; Scad.linear_extrude ~height:1.
+  |&gt; Scad.extrude ~height:1.
   |&gt; Scad.translate (v3 0. 0. (-0.5))
   |&gt; Scad.color ~alpha:0.5 Color.Silver</code></pre><p><a href="Scad_ml/Poly2/index.html#val-offset"><code>Poly2.offset</code></a>, and <a href="Scad_ml/Path2/index.html#val-offset"><code>Path2.offset</code></a>, are the point representation counterparts of <a href="Scad_ml/Scad/index.html#val-offset"><code>Scad.offset</code></a>, so they share the same semantics. For this example, we apply an negative (inward) circular offset.</p><pre><code>let () =
   Poly2.offset ~mode:`Radius (-0.5) poly
   |&gt; Poly2.to_scad
-  |&gt; Scad.linear_extrude ~height:1.
+  |&gt; Scad.extrude ~height:1.
   |&gt; Scad.add pointy
   |&gt; Scad.to_file &quot;offset_poly.scad&quot;</code></pre>
 <p style="text-align:center;">
@@ -17,7 +17,7 @@ let pointy =
   let radii = [ 1.; 1.5; 0.1; 10.; 0.8; 10. ] in
   Path2.Round.circles ~kind:`Radius (List.combine poly.outer radii)</code></pre><p>Then we'll apply our <a href="Scad_ml/Path2/Round/index.html#type-t"><code>Path2.Round.t</code></a> <code>shape_spec</code> with <a href="Scad_ml/Path2/index.html#val-roundover"><code>Path2.roundover</code></a>, with <code>fn</code> segments per corner, and compare that to the original <code>pointy</code> shape.</p><pre><code>let () =
   Scad.polygon (Path2.roundover ~fn:60 shape_spec)
-  |&gt; Scad.linear_extrude ~height:1.
+  |&gt; Scad.extrude ~height:1.
   |&gt; Scad.add pointy
   |&gt; Scad.to_file &quot;circular_rounding.scad&quot;</code></pre>
 <p style="text-align:center;">

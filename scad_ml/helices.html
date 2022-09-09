@@ -10,7 +10,7 @@
   |&gt; Path2.of_tups
   |&gt; Poly2.make
 
-let () = Scad.to_file &quot;elbow.scad&quot; (Scad.linear_extrude ~height:1. @@ Poly2.to_scad poly)</code></pre>
+let () = Scad.to_file &quot;elbow.scad&quot; (Scad.extrude ~height:1. @@ Poly2.to_scad poly)</code></pre>
 <p style="text-align:center;">
 <img src="../assets/elbow.png" style="width:150mm;"/>
 </p> <p>Sweep our <code>poly</code> along a left-handed helix, while halving its width, and doubling its height. This time we'll start with a wider base radius and narrow towards the top.</p><pre><code>let () =

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>arc_points (scad_ml.arc_points)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; arc_points</nav><header class="odoc-preamble"><h1 id="arcing-paths"><a href="#arcing-paths" class="anchor"></a>Arcing paths</h1><pre><code>open Scad_ml</code></pre><p>A numbered marker function for <a href="Scad_ml/Path2/index.html#val-show_points"><code>Path2.show_points</code></a> and <a href="Scad_ml/Path3/index.html#val-show_points"><code>Path3.show_points</code></a> that we can use to visualize our arcs (and their ordering).</p><pre><code>let show i = Scad.linear_extrude ~height:1. (Scad.text ~size:2. (Printf.sprintf &quot;%i&quot; i))</code></pre><p>Draw an arcing path of <code>fn</code> points on the xy plane through the points describing a triangle.</p><pre><code>let () =
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>arc_points (scad_ml.arc_points)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">scad_ml</a> &#x00BB; arc_points</nav><header class="odoc-preamble"><h1 id="arcing-paths"><a href="#arcing-paths" class="anchor"></a>Arcing paths</h1><pre><code>open Scad_ml</code></pre><p>A numbered marker function for <a href="Scad_ml/Path2/index.html#val-show_points"><code>Path2.show_points</code></a> and <a href="Scad_ml/Path3/index.html#val-show_points"><code>Path3.show_points</code></a> that we can use to visualize our arcs (and their ordering).</p><pre><code>let show i = Scad.extrude ~height:1. (Scad.text ~size:2. (Printf.sprintf &quot;%i&quot; i))</code></pre><p>Draw an arcing path of <code>fn</code> points on the xy plane through the points describing a triangle.</p><pre><code>let () =
   let arc = Path2.arc_through ~fn:5 (v2 0. (-10.)) (v2 10. 0.) (v2 0. 10.) in
   Scad.to_file &quot;arc_points_2d.scad&quot; (Path2.show_points show arc)</code></pre>
 <p style="text-align:center;">
@@ -13,7 +13,7 @@
       (v2 (-15.) 0.)
       (v2 5. (-5.))
   in
-  let wedge = Scad.linear_extrude ~height:1. @@ Path2.to_scad arc
+  let wedge = Scad.extrude ~height:1. @@ Path2.to_scad arc
   and marks =
     Path2.show_points show arc
     |&gt; Scad.translate (v3 0. 0. 1.1)

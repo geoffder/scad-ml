@@ -11,12 +11,12 @@ let () =
       Poly2.make ~holes (Path2.square ~center:true (v2 10. 10.))
     in
     let poly =
-      Mesh.linear_extrude ~merge:true ~height:1. shape
+      Mesh.extrude ~merge:true ~height:1. shape
       |&gt; Mesh.to_scad
       |&gt; Scad.color ~alpha:0.5 Color.Silver
     and reference =
       Poly2.to_scad shape
-      |&gt; Scad.linear_extrude ~height:1.
+      |&gt; Scad.extrude ~height:1.
       |&gt; Scad.translate (v3 0. 0. (-3.))
       |&gt; Scad.color ~alpha:0.5 Color.BlueViolet
     in

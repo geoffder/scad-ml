@@ -8,7 +8,7 @@
   and p { x; y; z } = [ v3 x y z; v3 (x *. 2.) (y *. 2.) (z *. 2.) ] in
   let out = [ v3 d 0. 0.; v3 d 0. d; v3 d 0. (-.d) ] in
   let f i = List.map (fun s -&gt; V3.rotate (v3 0. 0. Float.(pi /. 4. *. i)) s |&gt; p) out in
-  p (v3 0. 0. d) :: p (v3 0. 0. (-.d)) :: List.concat_map f (List.init 8 Float.of_int)</code></pre><p>Original orientation of the shape <code>poly</code> for reference.</p><pre><code>let flat = Scad.linear_extrude ~height:1. (Poly2.to_scad poly)</code></pre><p>Extrude <code>poly</code> along each of the generated <code>paths</code>, using either default/standard, or euler path transformations (see <a href="Scad_ml/Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a>).</p><pre><code>let starburst ~euler =
+  p (v3 0. 0. d) :: p (v3 0. 0. (-.d)) :: List.concat_map f (List.init 8 Float.of_int)</code></pre><p>Original orientation of the shape <code>poly</code> for reference.</p><pre><code>let flat = Scad.extrude ~height:1. (Poly2.to_scad poly)</code></pre><p>Extrude <code>poly</code> along each of the generated <code>paths</code>, using either default/standard, or euler path transformations (see <a href="Scad_ml/Path3/index.html#val-to_transforms"><code>Path3.to_transforms</code></a>).</p><pre><code>let starburst ~euler =
   let scad =
     let f path = Mesh.(to_scad @@ path_extrude ~euler ~path poly) in
     Scad.union @@ (flat :: List.map f paths)
